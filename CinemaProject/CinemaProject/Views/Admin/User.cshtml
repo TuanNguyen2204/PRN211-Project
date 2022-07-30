@@ -1,0 +1,42 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@using CinemaProject.Models
+@model List<Person>
+
+<h5>@((string)ViewData["Message"])</h5>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Họ và tên</th>
+            <th scope="col">Email</th>
+            <th scope="col">Trạng thái</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <form action="/Admin/User" method="post"> 
+            <tr>
+                <td>@item.Fullname</td>
+                <td>@item.Email</td>
+                <td>
+                    <input type="hidden" name="email" value="@item.Email"/>
+                    <select name="status">
+                        <!option value="true" @(item.IsActive==true?"selected":"")>Kích hoạt</!option>
+                        <!option value="false" @(item.IsActive==false?"selected":"")>Chặn</!option>
+                    </select>
+                </td>
+                <td><button class="btn btn-info">Cập nhật</button></td>
+            </tr>
+            </form>
+
+        }
+
+    </tbody>
+</table>

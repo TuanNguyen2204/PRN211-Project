@@ -1,0 +1,32 @@
+
+.content{
+    display: flex;
+    flex-direction: column;
+}
+.rating{
+    margin-top: 10px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 2rem;
+}
+
+.cmt-title{
+    margin-top: 1rem;
+}
+
+.comment-item{
+    margin-bottom: 1rem;
+}
+
+.comment-item span{
+    color: grey;
+}
+
+input{
+    width: 90px;
+}
+
+textarea{
+    resize:none;
+    height:200px;
+    margin-bottom:1rem;
+}

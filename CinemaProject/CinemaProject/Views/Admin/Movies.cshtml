@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@using CinemaProject.Models
+@model List<Movie>
+<h1>Danh sách phim</h1>
+<h5><a href="/Admin/NewMovie">Thêm phim mới</a></h5>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Tên phim</th>
+            <th scope="col">Năm sản xuất</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="/img/@item.Image"/></td>
+                <td>@item.Title</td>
+                <td>@item.Year</td>
+                <td><a href="/Admin/MovieDetail/@item.MovieId">Xem chi tiết</a> | <a href="/Admin/Movies">Xóa</a></td>
+            </tr>
+        }
+
+    </tbody>
+</table>

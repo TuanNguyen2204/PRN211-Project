@@ -1,0 +1,38 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using CinemaProject.Models
+@model List<Genre>
+
+<h5>@ViewData["Message"]</h5>
+<h3><a href="/Admin/AddGenre">Thêm thể loại</a></h3>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Tên thể loại</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <form method="post" action="/Admin/Genres">
+            <tr>
+                <td>@item.GenreId</td>
+
+                <td>
+                    <input type="hidden" name="gid" value="@item.GenreId"/>
+                    <input type="text" value="@item.Description" name="des" />
+                </td>
+                <td><button class="btn btn-warning">Cập nhật</button></td>
+            </tr>
+            </form>
+        }
+
+
+
+    </tbody>
+</table>

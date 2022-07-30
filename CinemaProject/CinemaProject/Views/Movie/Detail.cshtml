@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Chi tiết phim";
+    dynamic comment = ViewData["comment"];
+    dynamic movieDetail = (dynamic)ViewData["movieDetail"];
+    var check = (Rate)ViewData["check"];
+
+    object obj = movieDetail;
+}
+
+
+<link href="~/css/details.css" rel="stylesheet" />
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <img src="~/img/@Model.GetType().GetProperty("Image").GetValue(Model,null)" alt="" class="img-fluid">
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="title">
+                        <h1>@Model.GetType().GetProperty("Title").GetValue(Model,null)</h1>
+                    </div>
+                    <div class="content">
+                        <span class="content-genre">
+                            <b>Thể loại:&nbsp;</b>@Model.GetType().GetProperty("Des").GetValue(Model,null)
+                        </span>
+                        <span class="content-rate">
+                            <b>Điểm đánh giá:&nbsp;</b>@Model.GetType().GetProperty("Average").GetValue(Model,null)
+                        </span>
+                        <span class="content-description">
+                            <b>Mô tả:&nbsp;</b>@Model.GetType().GetProperty("MovieDes").GetValue(Model,null)
+                        </span>
+                    </div>
+                    @if (check == null)
+                    {
+                        <form method="post" action="/Movie/AddNewCmt">
+                            <div class="rating d-flex flex-column">
+                                <label>Điểm đánh giá:</label>
+                                <input type="number" min="0" max="10" step="0.1" placeholder="0" name="rating" />
+                                <label>Bình luận:</label>
+                                <textarea name="cmt"></textarea>
+                                <a class="btn btn-primary mr-1" href="#" role="button">Đánh giá</a>
+                            </div>
+                        </form>
+
+                    }
+                    else
+                    {
+                        <form method="post" action="/Movie/AddNewCmt">
+                            <div class="rating d-flex flex-column">
+                                <label>Điểm đánh giá:</label>
+                                <input type="number" min="0" max="10" step="0.1" placeholder="0" name="rating" value="@check.NumericRating" />
+                                <label>Bình luận:</label>
+                                <textarea name="cmt">@check.Comment</textarea>
+                                <a class="btn btn-primary mr-1" href="#" role="button">Cập nhật</a>
+                            </div>
+                        </form>
+
+                    }
+
+                </div>
+                <div class="col-md-12">
+                    <div class="cmt-title">
+                        <h2>Bình luận:</h2>
+                    </div>
+                    <div class="comment">
+                        @foreach (var item in comment)
+                        {
+                            <div class="comment-item">
+                                <span>
+                                    <b>
+                                        @item.GetType().GetProperty("FullName").GetValue(item, null)>&nbsp;
+                                        @item.GetType().GetProperty("Comment").GetValue(item, null)
+                                </span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

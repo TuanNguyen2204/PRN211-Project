@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+    List<Genre> genres = (List<Genre>)ViewData["listGenre"];
+    int genreId = Convert.ToInt32(ViewData["GenreId"]);
+}
+@model dynamic
+<link href="~/css/home.css" rel="stylesheet" />
+
+<div class="row">
+    <div class="col-md-4 p-0">
+        <h3>Thể loại</h3>
+        <ul class="category">
+            @foreach (var item in genres)
+            {
+                <li class="category-item"><a data-genre="@item.GenreId" href="/Home/Genres?genreId=@item.GenreId" class="@(item.GenreId==@genreId ? "active" : "")">@item.Description</a></li>
+            }
+        </ul>
+    </div>
+    <div class="movies col-md-8">
+        <div class="row">
+
+            @foreach (dynamic item in Model)
+            {
+                <div class="col-md-3 movies-item">
+                    <div class="mb-3">
+                        <a href="/Movie/Detail/@item.GetType().GetProperty("MovieId").GetValue(item, null)"><img class="img-thumbnail" src="~/img/@item.GetType().GetProperty("Image").GetValue(item, null)" alt="Alternate Text" /></a>
+                    </div>
+                    <div class="movies-header text-center">
+                        <a href="/Movie/Detail/@item.GetType().GetProperty("MovieId").GetValue(item, null)">
+                            <h5>@item.GetType().GetProperty("Title").GetValue(item, null)</h5>
+                        </a>
+                    </div>
+                    <div>
+                        <ul class="movies-des">
+                            <li>Năm: @item.GetType().GetProperty("Year").GetValue(item, null)</li>
+                            <li>Loại: @item.GetType().GetProperty("Des").GetValue(item, null)</li>
+                            <li>Điểm: @item.GetType().GetProperty("Average").GetValue(item, null)</li>
+                        </ul>
+                    </div>
+                    <div class="rating text-center">
+                        <button href="/Movie/Detail/@item.GetType().GetProperty("MovieId").GetValue(item, null)" type="button" class="btn btn-danger">Đánh giá</button>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+<script src="~/js/home.js"></script>
